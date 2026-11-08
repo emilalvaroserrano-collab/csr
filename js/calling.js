@@ -13,7 +13,7 @@ let callMode="demo";
 try{submittedLead=JSON.parse(sessionStorage.getItem("abi-tech-pending-lead")||localStorage.getItem("abi-tech-last-lead")||"null")}catch(_){}
 const agentSlug=(location.pathname.match(/^\/agent\/([^/]+)/)||[])[1]||null;
 if(agentSlug)callMode="agent";
-else if(!submittedLead){window.location.replace("./index.html");throw new Error("No submitted lead found");}
+else if(!submittedLead){window.location.replace("/index.html");throw new Error("No submitted lead found");}
 if(callMode==="agent"&&!agentSlug){callMode="demo"}
 
 let activePersona=null;
@@ -74,7 +74,7 @@ async function startGeneratedRing(){stopGeneratedRing();const AC=window.AudioCon
 function stopGeneratedRing(){if(ringInterval)clearInterval(ringInterval);if(ringStopTimer)clearTimeout(ringStopTimer);ringInterval=ringStopTimer=null;if(ringMaster)try{ringMaster.disconnect()}catch(_){};ringMaster=null;if(ringAudioCtx)try{ringAudioCtx.close()}catch(_){};ringAudioCtx=null}
 function stopRing(){stopGeneratedRing();ringing=false}
 let pickupAudio=null;
-function preloadPickupSound(){try{pickupAudio=new Audio("./assets/pick-the-call.mp3");pickupAudio.preload="auto";pickupAudio.volume=.9}catch(_){pickupAudio=null}}
+function preloadPickupSound(){try{pickupAudio=new Audio("/assets/pick-the-call.mp3");pickupAudio.preload="auto";pickupAudio.volume=.9}catch(_){pickupAudio=null}}
 function stopPickupSound(){if(!pickupAudio)return;try{pickupAudio.pause();pickupAudio.currentTime=0}catch(_){}}
 function playPickupSound(){
  return new Promise(resolve=>{
@@ -221,9 +221,9 @@ function buildAssistantOverrides(ctx){
   model:{provider:"anthropic",model:window.ABITECH_CONFIG.assistant.model,temperature:.7,messages:[{role:"system",content:p.join("\n\n")}],knowledgeBase:{provider:"google",fileIds:["8e859b7f-414f-4f8a-9718-64bf702467df"]},tools:[BIBLE_PERSONALITY_TOOL,SAVE_CLIENT_DETAILS_TOOL]}
  };
 }
-function markCallStarted(){if(inCall)return;inCall=true;connecting=false;callStartedAt=Date.now();const personaName=activePersona?.name||"Abbie";$("callTitle").textContent=personaName;$("endBtn").textContent="End Call";status("Connected","live");startTimer();if(activeContext?.lead){saveClientLead({status:"in_call",callId:currentCallId}).catch(console.error)}try{navigator.wakeLock?.request("screen").then(x=>wakeLock=x)}catch(_){}}
-function markCallEnded(){inCall=false;connecting=false;ringing=false;stopGeneratedRing();stopPickupSound();stopTimer();finalizeLead();$("avatar").classList.remove("live");$("callTitle").textContent="Call ended";$("endBtn").textContent=callMode==="agent"?"Talk Now":"Back to Form";status("Call ended");if(callMode!=="agent")sessionStorage.removeItem("abi-tech-pending-lead")}
-function handleCallError(e){connecting=false;ringing=false;stopGeneratedRing();stopPickupSound();$("avatar").classList.remove("live");$("callTitle").textContent="Unable to connect";$("endBtn").textContent=callMode==="agent"?"Talk Now":"Back to Form";status(e?.message||"Call connection error","bad");toast(e?.message||"Call connection error")}
+function markCallStarted(){if(inCall)return;inCall=true;connecting=false;callStartedAt=Date.now();const personaName=activePersona?.name||"Abbie";$("callTitle").textContent=personaName;$("endBtn").textContent="End Call";$("endBtn").classList.remove("talk-now");status("Connected","live");startTimer();if(activeContext?.lead){saveClientLead({status:"in_call",callId:currentCallId}).catch(console.error)}try{navigator.wakeLock?.request("screen").then(x=>wakeLock=x)}catch(_){}}
+function markCallEnded(){inCall=false;connecting=false;ringing=false;stopGeneratedRing();stopPickupSound();stopTimer();finalizeLead();$("avatar").classList.remove("live");$("callTitle").textContent="Call ended";$("endBtn").textContent=callMode==="agent"?"Talk Now":"Back to Form";$("endBtn").classList.toggle("talk-now",callMode==="agent");status("Call ended");if(callMode!=="agent")sessionStorage.removeItem("abi-tech-pending-lead")}
+function handleCallError(e){connecting=false;ringing=false;stopGeneratedRing();stopPickupSound();$("avatar").classList.remove("live");$("callTitle").textContent="Unable to connect";$("endBtn").textContent=callMode==="agent"?"Talk Now":"Back to Form";$("endBtn").classList.toggle("talk-now",callMode==="agent");status(e?.message||"Call connection error","bad");toast(e?.message||"Call connection error")}
 
 async function resolveCallContext(){
  if(callMode==="agent"){
@@ -252,6 +252,7 @@ async function startCall(){
   ringing=true;
   status(`Calling ${persona.name}…`,"live");
   $("endBtn").textContent="End Call";
+  $("endBtn").classList.remove("talk-now");
   $("callTitle").textContent=persona.name;
   if($("callSub"))$("callSub").textContent=ctx.agent?`${persona.businessName||"Your Business"} — AI Customer Care`:"ABI Tech Customer Care";
   await startGeneratedRing();
@@ -279,7 +280,15 @@ async function endCall(){
   connecting=false;
   try{if(vapiInstance?.stop)await vapiInstance.stop()}catch(_){};
   await finalizeLead("call_cancelled");
-  if(callMode!=="agent")window.location.href="./index.html";
+  if(callMode==="agent"){
+   $("avatar").classList.remove("live");
+   $("callTitle").textContent=activePersona?.name||"Call ended";
+   $("endBtn").textContent="Talk Now";
+   $("endBtn").classList.add("talk-now");
+   status("Call cancelled","");
+   return;
+  }
+  window.location.href="/index.html";
   return;
  }
  if(inCall){
@@ -292,10 +301,10 @@ async function endCall(){
   await startCall();
   return;
  }
- window.location.href="./index.html";
+ window.location.href="/index.html";
 }
 $("endBtn").addEventListener("click",endCall);
-$("backBtn").addEventListener("click",()=>{if(inCall||connecting||ringing){if(confirm("End the current call?"))endCall()}else window.location.href="./index.html"});
+$("backBtn").addEventListener("click",()=>{if(inCall||connecting||ringing){if(confirm("End the current call?"))endCall()}else window.location.href="/index.html"});
 window.addEventListener("beforeunload",e=>{if(inCall||connecting){e.preventDefault();e.returnValue=""}});
 async function bootstrapCallPage(){
  status("Initializing secure connection…","live");
@@ -308,6 +317,7 @@ async function bootstrapCallPage(){
    $("callTitle").textContent=persona.name;
    if($("callSub"))$("callSub").textContent=`${persona.businessName||"Your Business"} — AI Customer Care`;
    $("endBtn").textContent="Talk Now";
+   $("endBtn").classList.add("talk-now");
    status("Your AI CSR is ready","live");
   }else{
    await startCall();
