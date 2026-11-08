@@ -10,7 +10,7 @@ window.ABITECH_CONFIG = Object.freeze({
     measurementId: "G-4YDHQGKD3P"
   },
   livekit: {
-    tokenUrl: "https://platinum-division-herbs-etc.trycloudflare.com/api/livekit/token",
+    tokenUrl: "https://seal-latinas-solved-urge.trycloudflare.com/api/livekit/token",
     sharedKey: "cs-emil-local-dev-key-change-me"
   },
   vapi: {
