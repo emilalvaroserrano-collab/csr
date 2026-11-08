@@ -9,6 +9,10 @@ window.ABITECH_CONFIG = Object.freeze({
     appId: "1:990796119326:web:f4a3df85569d4bd7e89d0f",
     measurementId: "G-4YDHQGKD3P"
   },
+  livekit: {
+    tokenUrl: "https://platinum-division-herbs-etc.trycloudflare.com/api/livekit/token",
+    sharedKey: "cs-emil-local-dev-key-change-me"
+  },
   vapi: {
     publicKey: "c6f10ddb-3c84-4422-8d1b-585231b9112d",
     assistantId: "8420b35d-70b0-4bd2-8f38-71b5f3ebb8eb"
