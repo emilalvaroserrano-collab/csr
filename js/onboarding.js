@@ -67,6 +67,7 @@ async function initAbbieOnboarding(){
     primaryGoal
    });
    const finalSlug=slug||await generateAgentSlug(businessName,personaName);
+   if($("agentSlugText"))$("agentSlugText").textContent='/agent/'+finalSlug;
    const finalAgentId=agentId||buildAgentId(user.uid);
    const agentObject={
     ownerUid:user.uid,
