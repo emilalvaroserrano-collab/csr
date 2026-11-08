@@ -6,7 +6,7 @@ function waitForAbbieUser(){
  return new Promise((resolve)=>{
   let settled=false;
   const done=()=>{ if(settled)return; settled=true; window.clearTimeout(timer); window.removeEventListener("abbie-firebase-ready",check); window.removeEventListener("abbie-auth-change",check); resolve(window.abbieAuthUser||{uid:window.abbieFirebase?.uid||"anonymous"}); };
-  const check=()=>{ if(window.abbieAuthUser)done(); };
+  const check=()=>{ if(window.abbieAuthUser||window.abbieFirebase?.uid)done(); };
   window.addEventListener("abbie-firebase-ready",check);
   window.addEventListener("abbie-auth-change",check);
   const timer=setTimeout(done,15000);

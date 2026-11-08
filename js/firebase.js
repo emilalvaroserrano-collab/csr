@@ -127,6 +127,7 @@ function settleAuthenticated(user){
  window.abbieFirebase=api;
  window.abbieFirebaseReady=true;
  window.abbieFirebaseUser=user;
+  window.abbieAuthUser=user;
  resolveReady(api);
  window.dispatchEvent(new CustomEvent("abbie-firebase-ready"));
  window.dispatchEvent(new CustomEvent("abbie-auth-change",{detail:{user}}));
