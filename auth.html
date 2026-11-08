@@ -1,0 +1,9 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" /><meta name="theme-color" content="#080a0f"><title>Sign in — ABI Tech AI CSR</title><link rel="stylesheet" href="./css/styles.css"></head><body><main class="app">
+<header><div class="brand"><small>ABI TECH</small><strong>Customer Care</strong></div></header>
+<section class="hero"><div class="eyebrow">AI CSR Platform</div><h1>Your AI customer care agent.</h1><p>Create your own customized AI CSR in minutes. Sign in to get started.</p></section>
+<form class="form" id="authForm"><div class="field"><label for="authMode">Account</label><select id="authMode"><option value="signin">Sign In</option><option value="signup">Create Account</option></select></div><div class="field" id="authNameField" style="display:none"><label for="authName">Name</label><input id="authName" autocomplete="name" placeholder="Your name"></div><div class="field"><label for="authEmail">Email</label><input id="authEmail" type="email" autocomplete="email" required placeholder="you@company.com"></div><div class="field"><label for="authPassword">Password</label><input id="authPassword" type="password" autocomplete="new-password" required placeholder="••••••••"></div><div class="form-error" id="authError"></div><button class="submit" id="authSubmit" type="submit">Sign In</button><button class="google" id="googleAuthBtn" type="button">Continue with Google</button><p class="note" id="authNote">After you sign in you will create your AI CSR.</p></form>
+</main>
+<script src="./js/config.js"></script>
+<script type="module" src="./js/firebase.js"></script>
+<script defer src="./js/auth.js"></script>
+</body></html>

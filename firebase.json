@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      { "source": "/auth", "destination": "/auth.html" },
+      { "source": "/onboarding", "destination": "/onboarding.html" },
+      { "source": "/dashboard", "destination": "/dashboard.html" },
+      { "source": "/agent/{slug}", "destination": "/agent.html" },
+      { "source": "/demo", "destination": "/demo.html" },
+      { "source": "/demo/abbie", "destination": "/demo.html" }
+    ]
+  }
+}

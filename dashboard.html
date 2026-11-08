@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" /><meta name="theme-color" content="#080a0f"><title>Your AI CSR — ABI Tech</title><link rel="stylesheet" href="./css/styles.css"></head><body><main class="app">
+<header><div class="brand"><small>ABI TECH</small><strong>Customer Care</strong></div></header>
+<section class="hero"><div class="eyebrow">Agent Dashboard</div><h1 id="agentPanelTitle">Your AI CSR</h1><p>Manage your customized AI customer care agent.</p></section>
+<div id="agentEmptyState"><section class="hero"><div class="eyebrow">No agent yet</div><h1>Create your AI CSR.</h1><p>Your AI customer care agent is one sign-in away.</p><a class="cta primary" id="agentCreateCta" href="/auth">Create My AI CSR</a></section></div>
+<div id="agentPanel" hidden>
+<section class="card">
+<div class="row spread"><span>Agent</span><strong id="agentPersonaName"></strong></div>
+<div class="row spread"><span>Business</span><span id="agentBusinessName"></span></div>
+<div class="row spread"><span>Status</span><span id="agentStatus"></span></div>
+</section>
+<div class="field"><label for="agentPublicUrl">Your Public CSR URL</label><div class="row"><input id="agentPublicUrl" readonly><button type="button" class="ghost" id="agentCopyUrlBtn">Copy</button></div></div>
+<div class="cta-row"><button type="button" class="submit" id="agentLaunchBtn">Launch / Test Agent</button><button type="button" class="ghost" id="agentEditBtn">Edit Agent</button></div>
+<div class="field"><label>Website Embed Code</label><textarea id="agentEmbedCodeText" readonly rows="4"></textarea><button type="button" class="ghost" id="agentCopyEmbedBtn">Copy</button></div>
+</div>
+<form id="agentLogoutForm"><button type="submit" class="ghost" id="agentLogoutBtn">Sign Out</button></form>
+</main>
+<script src="./js/config.js"></script>
+<script type="module" src="./js/firebase.js"></script>
+<script defer src="./js/auth.js"></script>
+<script defer src="./js/agents.js"></script>
+<script defer src="./js/dashboard.js"></script>
+</body></html>
