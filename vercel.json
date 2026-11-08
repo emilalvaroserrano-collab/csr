@@ -1,12 +1,12 @@
 {
-  "redirects": [
-    { "source": "/", "destination": "/index.html", "statusCode": 200 },
-    { "source": "/auth", "destination": "/auth.html", "statusCode": 200 },
-    { "source": "/onboarding", "destination": "/onboarding.html", "statusCode": 200 },
-    { "source": "/dashboard", "destination": "/dashboard.html", "statusCode": 200 },
-    { "source": "/agent/:slug", "destination": "/agent.html", "statusCode": 200 },
-    { "source": "/demo", "destination": "/demo.html", "statusCode": 200 },
-    { "source": "/demo/abbie", "destination": "/demo.html", "statusCode": 200 }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/auth", "destination": "/auth.html" },
+    { "source": "/onboarding", "destination": "/onboarding.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" },
+    { "source": "/agent/:slug", "destination": "/agent.html" },
+    { "source": "/demo", "destination": "/demo.html" },
+    { "source": "/demo/abbie", "destination": "/demo.html" }
   ],
   "headers": [
     {
