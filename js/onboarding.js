@@ -20,22 +20,21 @@ async function initAbbieOnboarding(){
   return null;
  }
  const agent=await fb.getOwnerAgent();
- if(!agent){
-  window.location.href="/dashboard";
-  return null;
+ /* New users see the prefilled Abbie defaults; edit mode loads their stored values. */
+ if(agent){
+  if($("agentPersonaName"))$("agentPersonaName").value=String(agent.personaName||"Abbie");
+  if($("agentPersonaProfession"))$("agentPersonaProfession").value=String(agent.personaProfession||"Customer Service and Business Solutions Representative");
+  if($("agentBusinessName"))$("agentBusinessName").value=String(agent.businessName||"ABI Tech");
+  if($("agentBusinessUrl"))$("agentBusinessUrl").value=String(agent.businessUrl||"");
+  if($("agentRoles"))$("agentRoles").value=String(agent.roles||"");
+  if($("agentDescription"))$("agentDescription").value=String(agent.description||"");
+  if($("agentBackstory"))$("agentBackstory").value=String(agent.backstory||"");
+  if($("agentPrimaryGoal"))$("agentPrimaryGoal").value=String(agent.primaryGoal||"");
+  if($("agentVoiceId"))$("agentVoiceId").value=String(agent.voiceId||"Emma");
+  if($("agentStatus"))$("agentStatus").textContent=String(agent.status||"live");
+  if($("agentId"))$("agentId").value=String(agent.agentId||"");
+  if($("agentSlug"))$("agentSlug").value=String(agent.slug||"");
  }
- if($("agentPersonaName"))$("agentPersonaName").value=String(agent.personaName||"Sarah");
- if($("agentPersonaProfession"))$("agentPersonaProfession").value=String(agent.personaProfession||"Customer Service and Business Solutions Representative");
- if($("agentBusinessName"))$("agentBusinessName").value=String(agent.businessName||"My Business");
- if($("agentBusinessUrl"))$("agentBusinessUrl").value=String(agent.businessUrl||"");
- if($("agentRoles"))$("agentRoles").value=String(agent.roles||"");
- if($("agentDescription"))$("agentDescription").value=String(agent.description||"");
- if($("agentBackstory"))$("agentBackstory").value=String(agent.backstory||"");
- if($("agentPrimaryGoal"))$("agentPrimaryGoal").value=String(agent.primaryGoal||"");
- if($("agentVoiceId"))$("agentVoiceId").value=String(agent.voiceId||"");
- if($("agentStatus"))$("agentStatus").textContent=String(agent.status||"live");
- if($("agentId"))$("agentId").value=String(agent.agentId||"");
- if($("agentSlug"))$("agentSlug").value=String(agent.slug||"");
  const form=$("agentForm");
  if(!form)return;
  form.addEventListener("submit",async e=>{
