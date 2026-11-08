@@ -1,13 +1,13 @@
 window.ABITECH_CONFIG = Object.freeze({
   firebase: {
-    apiKey: "AIzaSyCHErUyhBxmwFpKJ4b7QaRmEYaiLm-rjDA",
-    authDomain: "csr-studio.firebaseapp.com",
-    databaseURL: "https://csr-studio-default-rtdb.firebaseio.com",
-    projectId: "csr-studio",
-    storageBucket: "csr-studio.firebasestorage.app",
-    messagingSenderId: "990796119326",
-    appId: "1:990796119326:web:f4a3df85569d4bd7e89d0f",
-    measurementId: "G-4YDHQGKD3P"
+    apiKey: "AIzaSyAXEAwg0nLMl5cTD0td7t15HaCJ1nL0eH4",
+    authDomain: "orbit-1cf1c.firebaseapp.com",
+    databaseURL: "https://orbit-1cf1c-default-rtdb.firebaseio.com",
+    projectId: "orbit-1cf1c",
+    storageBucket: "orbit-1cf1c.firebasestorage.app",
+    messagingSenderId: "737913630817",
+    appId: "1:737913630817:web:737eab026e591e1bf67a20",
+    measurementId: "G-W4R6H106W9"
   },
   vapi: {
     publicKey: "c6f10ddb-3c84-4422-8d1b-585231b9112d",
