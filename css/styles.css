@@ -1,27 +1,252 @@
-:root{--bg:#080a0f;--card:#11151d;--line:#272d39;--text:#f7f8fb;--muted:#8b94a5;--green:#43dc91;--red:#ff5c65}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% 0,#202838 0,#0c1017 35%,var(--bg) 72%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}body{min-height:100dvh}button,input,textarea{font:inherit}
-.app{width:min(100%,460px);min-height:100dvh;margin:auto;padding:22px 20px calc(28px + env(safe-area-inset-bottom));display:flex;flex-direction:column}
-header,.top{display:flex;justify-content:space-between;align-items:center}.brand{display:none}.brand small{display:block;color:#7e8798;letter-spacing:.16em;font-size:10px;font-weight:700}.brand strong{font-size:19px;letter-spacing:-.03em}
-.hero{padding:52px 0 28px}.eyebrow{color:var(--green);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.hero h1{margin:10px 0;font-size:38px;line-height:1.02;letter-spacing:-.05em}.hero p{margin:0;color:var(--muted);line-height:1.6;font-size:14px}
-.form{margin-top:10px}.field{margin-top:15px}.field label{display:block;color:#aab2c0;font-size:12px;margin-bottom:7px}.field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;background:#0a0d13;color:#fff;padding:0 14px;outline:none}.field input{height:52px}.field textarea{min-height:116px;padding:14px;resize:vertical}.field input:focus,.field textarea:focus{border-color:#4b566b}.field-hint{display:block;color:#626b7b;font-size:11px;margin-top:6px}
-.submit{margin-top:20px;width:100%;height:58px;border:0;border-radius:16px;background:var(--green);color:#07110c;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 12px 34px #43dc9130}.submit:active{transform:scale(.985)}.note,.hint{text-align:center;color:#626b7b;font-size:11px;line-height:1.5;margin:12px 5px 0}
-.callBody{overflow:hidden;background:radial-gradient(circle at 50% 18%,#263147 0,#101620 30%,#080a0f 72%)}.call{min-height:100dvh;width:min(100%,520px);margin:auto;padding:max(22px,env(safe-area-inset-top)) 22px calc(26px + env(safe-area-inset-bottom));display:flex;flex-direction:column}.back{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#11151d;color:#fff;font-size:19px}.center{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.avatar{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#202838,#0e1219);border:1px solid #354055;box-shadow:0 30px 90px #000a;position:relative}.avatar:before{content:"A";font-size:54px;font-weight:800}.avatar.live:after{content:"";position:absolute;inset:-11px;border:1px solid #43dc9188;border-radius:50%;animation:pulse 1.6s infinite}@keyframes pulse{50%{transform:scale(1.08);opacity:.2}}
-.call h1{font-size:31px;letter-spacing:-.045em;margin:28px 0 7px}.sub{margin:0;color:var(--muted);font-size:14px}.context{margin-top:18px;max-width:360px;padding:12px 15px;border:1px solid #293243;border-radius:14px;background:#111720aa;color:#c5ccd8;font-size:12px;line-height:1.45}.state{margin-top:23px;display:flex;gap:8px;align-items:center;color:#a7afbd;font-size:13px}.dot{width:8px;height:8px;background:#697386;border-radius:50%}.dot.live{background:var(--green);box-shadow:0 0 0 5px #43dc9117}.dot.bad{background:var(--red)}.timer{margin-top:10px;font-size:25px;font-variant-numeric:tabular-nums}.end{width:100%;height:58px;border:0;border-radius:16px;background:var(--red);color:#fff;font-weight:800;font-size:16px}.end:disabled{opacity:.55}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#fff;color:#080a0e;padding:10px 15px;border-radius:999px;font-size:12px;font-weight:700;opacity:0;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+/* Mobile-first AI CSR Agent Builder UI
+   Soft gradient backgrounds, subtle animations, native iPhone-style
+   Font: systemfont (oboto-inspired system stack)
+*/
 
-.cta-row{display:flex;gap:12px;margin-top:18px}
-.cta{flex:1;display:flex;align-items:center;justify-content:center;height:58px;border-radius:16px;font-weight:800;font-size:15px;text-decoration:none;box-sizing:border-box}
-.cta.primary{background:var(--green);color:#07110c;box-shadow:0 12px 34px #43dc9130}
-.cta.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
-.how{margin-top:34px;padding:20px;border:1px solid var(--line);border-radius:18px;background:#11151d}
-.how h2{margin:0 0 10px;font-size:17px;letter-spacing:-.02em}
-.how ol{margin:0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.7}
-.how strong{color:var(--text)}
-.form-error{color:var(--red);font-size:12px;margin-top:8px;line-height:1.4}
-.google{width:100%;height:54px;border-radius:16px;border:1px solid var(--line);background:#fff;color:#080a0e;font-weight:800;font-size:15px;cursor:pointer}
-.card{margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:18px;background:#11151d}
-.row{display:flex;gap:10px;align-items:center}
-.row.spread{justify-content:space-between}
-.row .field input{flex:1}
-.ghost{background:transparent;border:1px solid var(--line);color:var(--text);border-radius:14px;height:52px;padding:0 16px;font-weight:700;font-size:14px;cursor:pointer}
-.field select{width:100%;height:52px;border:1px solid var(--line);border-radius:14px;background:#0a0d13;color:#fff;padding:0 14px;outline:none}
+:root{
+  --bg: #0d1117;
+  --card: #161b22;
+  --line: #30363d;
+  --text: #f0f4f8;
+  --muted: #8b949e;
+  --green: #3fb950;
+  --red: #f85149;
+  --primary: #6366f1;
+  --accent: #a78bfa;
+  --warning: #fbbf24;
+}
+
+/* Basic reset */
+*, *::before, *::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{
+  width:100%;
+  height:100%;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1.5;
+}
+button,input,textarea,select{font:inherit;}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation-duration: 0ms !important;
+  transition-duration: 0ms !important;}
+
+/* App container */
+.app{max-width: 100%; min-height: 100dvh; margin: auto; padding: 20px; display: flex; flex-direction: column;}
+
+/* Hero/banner gradients - soft and animated */
+.hero{
+  padding: 60px 20px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before{
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 80%, rgba(167, 139, 250, 0.12) 0%, transparent 50%);
+  animation: gradientShift 15s ease infinite;
+  pointer-events: none;
+}
+@keyframes gradientShift{
+  0%, 100%{transform: translate(0,0);}
+  50%{transform: translate(30px, 30px);}
+}
+.hero .eyebrow{
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: inline-block;
+}
+.hero h1{
+  margin: 10px 0 0;
+  font-size: clamp(32px, 6vw, 44px);
+  line-height: 1.02;
+  letter-spacing: -.05em;
+  font-weight: 800;
+}
+.hero p{
+  margin: 12px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+
+/* Card styling - native iOS card */
+.card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 24px;
+  backdrop-filter: blur(8px);
+}
+
+/* Form styling */
+.form .field{
+  margin-top: 16px;
+}
+.form .field label{
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.form .field input,
+.form .field textarea,
+.form .field select{
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0d1117;
+  color: var(--text);
+  padding: 0 14px;
+  font-size: 15px;
+  height: 52px;
+  outline: none;
+  transition: border-color .2s;
+}
+.form .field input:focus,
+.form .field textarea:focus,
+.form .field select:focus{
+  border-color: var(--primary);
+}
+.form .field textarea{
+  min-height: 116px;
+  padding: 14px;
+  resize: vertical;
+  font-size: 15px;
+}
+.form .field select{
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b949e' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 40px;
+}
+.form .hint{
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+
+/* Buttons */
+.btn{
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .2s, transform .1s;
+  margin-top: 24px;
+}
+.btn:active{transform: scale(.98);}
+.btn.primary{
+  background: var(--green);
+  color: #07110c;
+  box-shadow: 0 4px 14px #3fb95030;
+}
+.btn.ghost{
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+.btn.success{
+  background: var(--primary);
+  color: #fff;
+}
+.btn.warning{
+  background: var(--warning);
+  color: #0f0e17;
+}
+
+/* Reduced motion class */
+.reduce-motion *{
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
+/* Landing page specific */
+.landing .hero{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.landing .cta-row{
+  margin-top: 32px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.landing .cta{
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Dashboard card */
+.dashboard .grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.dashboard .card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+.dashboard .stat{
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
+}
+.dashboard .label{
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Agent page */
+.agent-call .callTitle{
+  font-size: 28px;
+  letter-spacing: -.04em;
+}
+.agent-call .sub{
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+/* Focus visible */
+.btn:focus-visible,
+.form .field input:focus-visible,
+.form .field textarea:focus-visible,
+.form .field select:focus-visible{
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion media query */
+@media (prefers-reduced-motion: reduce){
+  .hero::before{animation: none;}
+}
+
+/* Select custom */
+.form .field select option{
+  background: var(--bg);
+  color: var(--text);
+}

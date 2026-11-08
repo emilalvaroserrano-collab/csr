@@ -1,27 +1,98 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" /><meta name="theme-color" content="#080a0f"><title>Create Your AI CSR — ABI Tech</title><link rel="stylesheet" href="./css/styles.css"></head><body><main class="app">
-<header><div class="brand"><small>ABI TECH</small><strong>Customer Care</strong></div></header>
-<section class="hero"><div class="eyebrow">AI CSR Builder</div><h1>Build your AI customer care agent.</h1><p>Tell us about your business. Your AI CSR will be tailored to it and deployed to a unique URL you can share with your customers.</p></section>
-<form class="form" id="agentForm">
-<input type="hidden" id="agentId">
-<input type="hidden" id="agentSlug">
-<input type="hidden" id="agentStatus" value="live">
-<input type="hidden" id="agentVoiceId" value="Emma">
-<div class="field"><label for="agentPersonaName">Persona Name</label><input id="agentPersonaName" autocomplete="off" required placeholder="e.g. Sarah"></div>
-<div class="field"><label for="agentBusinessName">Business Name</label><input id="agentBusinessName" autocomplete="organization" required placeholder="e.g. Acme Corp"></div>
-<div class="field"><label for="agentBusinessUrl">Business URL</label><input id="agentBusinessUrl" type="url" autocomplete="url" placeholder="https://yourbusiness.com"></div>
-<div class="field"><label for="agentRoles">CSR Roles & Responsibilities</label><textarea id="agentRoles" required placeholder="What is this CSR allowed to do? e.g. answer FAQs, qualify leads, book demos, escalate to humans"></textarea><small class="field-hint">Describe what the agent is authorized to handle.</small></div>
-<div class="field"><label for="agentDescription">CSR Description</label><textarea id="agentDescription" required placeholder="Personality, communication style, and expertise of the CSR"></textarea><small class="field-hint">How should the agent sound and what is its expertise?</small></div>
-<div class="field"><label for="agentBackstory">Agent Backstory</label><textarea id="agentBackstory" required placeholder="Professional background and identity of the CSR"></textarea><small class="field-hint">A fictional persona used for consistent speaking style.</small></div>
-<div class="field"><label for="agentPrimaryGoal">Agent Main Goal in Accepting Inbound Calls</label><textarea id="agentPrimaryGoal" required placeholder="The agent's main objective when receiving inbound customer calls"></textarea><small class="field-hint">What should the agent aim to achieve on each call?</small></div>
-<div class="field"><label for="agentVoiceId">Voice</label><select id="agentVoiceId"><option value="Emma">Emma</option><option value="Ava">Ava</option><option value="Sarah">Sarah</option><option value="Noah">Noah</option></select></div>
-<div class="field"><label>Deployment</label><div class="field-hint">Your agent will be deployed as <strong id="agentSlug">...</strong> and live immediately.</div></div>
-<button class="submit" id="agentSubmit" type="submit">Create My AI CSR Agent</button>
-<p class="note">Your customized AI CSR will answer your customers with a voice tailored to your business.</p>
-</form>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="theme-color" content="#0d1117">
+  <title>Create Your AI CSR — ABI Tech</title>
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+<main class="app">
+  <header>
+    <div class="brand"><small>ABI TECH</small><strong>Customer Care</strong></div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">AI CSR Builder</div>
+    <h1>Build your AI customer care agent.</h1>
+    <p>Tell us about your business. Your AI CSR will be tailored to it and deployed to a unique URL you can share with your customers.</p>
+  </section>
+
+  <section class="card" style="max-width: 360px; margin: auto; margin-top: 24px;">
+    <form class="form" id="agentForm">
+      <input type="hidden" id="agentId">
+      <input type="hidden" id="agentSlug">
+      <input type="hidden" id="agentStatus" value="live">
+      <input type="hidden" id="agentVoiceId" value="Emma">
+
+      <div class="field">
+        <label for="agentPersonaName">Persona Name</label>
+        <input id="agentPersonaName" autocomplete="off" required placeholder="e.g. Sarah">
+      </div>
+
+      <div class="field">
+        <label for="agentBusinessName">Business Name</label>
+        <input id="agentBusinessName" autocomplete="organization" required placeholder="e.g. Acme Corp">
+      </div>
+
+      <div class="field">
+        <label for="agentBusinessUrl">Business URL</label>
+        <input id="agentBusinessUrl" type="url" autocomplete="url" placeholder="https://yourbusiness.com">
+      </div>
+
+      <div class="field">
+        <label for="agentRoles">CSR Roles & Responsibilities</label>
+        <textarea id="agentRoles" required placeholder="What is this CSR allowed to do? e.g. answer FAQs, qualify leads, book demos, escalate to humans"></textarea>
+        <small class="field-hint">Describe what the agent is authorized to handle.</small>
+      </div>
+
+      <div class="field">
+        <label for="agentDescription">CSR Description</label>
+        <textarea id="agentDescription" required placeholder="Personality, communication style, and expertise of the CSR"></textarea>
+        <small class="field-hint">How should the agent sound and what is its expertise?</small>
+      </div>
+
+      <div class="field">
+        <label for="agentBackstory">Agent Backstory</label>
+        <textarea id="agentBackstory" required placeholder="Professional background and identity of the CSR"></textarea>
+        <small class="field-hint">A fictional persona used for consistent speaking style.</small>
+      </div>
+
+      <div class="field">
+        <label for="agentPrimaryGoal">Agent Main Goal in Accepting Inbound Calls</label>
+        <textarea id="agentPrimaryGoal" required placeholder="The agent's main objective when receiving inbound customer calls"></textarea>
+        <small class="field-hint">What should the agent aim to achieve on each call?</small>
+      </div>
+
+      <div class="field">
+        <label>Voice</label>
+        <select id="agentVoiceId">
+          <option value="Emma">Emma</option>
+          <option value="Ava">Ava</option>
+          <option value="Sarah">Sarah</option>
+          <option value="Noah">Noah</option>
+        </select>
+      </div>
+
+      <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line);">
+        <div style="font-size: 12px; color: var(--muted);">
+          Your agent will be deployed as <strong id="agentSlug">...</strong> and live immediately.
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section style="margin-top: 32px;">
+    <button class="btn primary" id="agentSubmit" type="submit">Create My AI CSR Agent</button>
+    <p class="note" style="margin-top: 16px; color: var(--muted);">Your customized AI CSR will answer your customers with a voice tailored to your business.</p>
+  </section>
 </main>
+
 <script src="./js/config.js"></script>
 <script type="module" src="./js/firebase.js"></script>
 <script defer src="./js/auth.js"></script>
 <script defer src="./js/agents.js"></script>
 <script defer src="./js/onboarding.js"></script>
-</body></html>
+</body>
+</html>
