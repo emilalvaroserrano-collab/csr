@@ -6,6 +6,7 @@
     { "source": "/dashboard", "destination": "/dashboard.html" },
     { "source": "/agent/:slug", "destination": "/agent.html" },
     { "source": "/demo", "destination": "/demo.html" },
+      { "source": "/tickets", "destination": "/tickets.html" },
     { "source": "/demo/abbie", "destination": "/demo.html" }
   ],
   "headers": [

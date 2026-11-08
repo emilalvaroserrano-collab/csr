@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <title>CSR Tickets — Abitech Services</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .ticket-row{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:12px;background:var(--card)}
+    .ticket-row .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .ticket-row .name{font-weight:700}
+    .ticket-row .meta{color:var(--muted);font-size:11px;margin-top:4px}
+    .ticket-row .cat{display:inline-block;padding:2px 8px;border-radius:8px;background:#1e293b;color:#a5b4fc;font-size:11px;text-transform:capitalize}
+    .empty{padding:40px 12px;text-align:center;color:var(--muted);font-size:13px}
+    .lock{max-width:360px;margin:auto;margin-top:60px;text-align:center}
+    .lock input{width:100%;margin-top:14px;height:52px;border:1px solid var(--line);border-radius:12px;background:#0d1117;color:var(--text);padding:0 14px;font-size:15px}
+    .lock button{margin-top:14px;width:100%;height:52px;border:0;border-radius:14px;background:var(--green);color:#052e22;font-weight:800;font-size:15px;cursor:pointer}
+    .badge{display:inline-block;padding:2px 8px;border-radius:8px;background:#1e293b;color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+    .gate-note{font-size:11px;color:var(--dim);margin-top:10px}
+  </style>
+</head>
+<body>
+<main class="app" id="appRoot">
+  <header><div class="brand"><small>ABI TECH</small><strong>Ticket Inbox</strong></div></header>
+
+  <section class="lock" id="lockedView">
+    <h1 style="font-size:28px;letter-spacing:-.03em;margin:0">Operator PIN</h1>
+    <p style="color:var(--muted);margin-top:8px;font-size:13px;line-height:1.5">Demonstration operator view for the CSR voice agent. Demo mode stores tickets in a publicly readable namespace.</p>
+    <input id="pinInput" type="password" autocomplete="off" placeholder="Operator PIN">
+    <button id="pinSubmit">Unlock</button>
+    <p class="gate-note">For real deployments, use Firebase Auth with an operator account.</p>
+  </section>
+
+  <div id="unlockedView" hidden>
+    <section class="hero"><div class="eyebrow">Support Inbox</div><h1 style="font-size:30px;margin:8px 0">Tickets from CSR calls</h1><p style="color:var(--muted);font-size:13px;line-height:1.5;margin:0">Tickets created when callers ask for a callback or specialist. Listed newest first. <span class="badge">public demo</span></p></section>
+    <div id="ticketsList"></div>
+    <div class="empty" id="emptyState" hidden>No tickets yet. Make a test call and ask for a callback.</div>
+    <p class="note" style="margin-top:18px"><button class="ghost" id="refreshBtn" style="width:auto;padding:0 16px;height:44px">Refresh</button> <button class="ghost" id="lockBtn" style="width:auto;padding:0 16px;height:44px">Lock</button></p>
+  </div>
+</main>
+
+<script type="module">
+const VALID_PIN = "abitech-demo";
+const RTDB = "https://csr-studio-default-rtdb.firebaseio.com/publicAgents/tickets.json";
+
+const $ = id => document.getElementById(id);
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function timeOf(ts) {
+  const n = Number(ts);
+  if (!Number.isFinite(n) || n <= 0) return "unknown time";
+  const d = new Date(n);
+  return d.toLocaleString("en-PH", { year:"numeric", month:"short", day:"numeric", hour:"2-digit", minute:"2-digit" });
+}
+
+async function loadTickets() {
+  $("ticketsList").innerHTML = '<div class="empty">Loading tickets…</div>';
+  $("emptyState").hidden = true;
+  try {
+    const r = await fetch(RTDB, { cache: "no-store" });
+    if (!r.ok) throw new Error("Could not load tickets (HTTP " + r.status + ")");
+    const data = await r.json();
+    const entries = data && typeof data === "object" ? Object.entries(data) : [];
+    entries.sort((a,b) => Number(b[1]?.createdAt || 0) - Number(a[1]?.createdAt || 0));
+    if (!entries.length) { $("ticketsList").innerHTML = ""; $("emptyState").hidden = false; return; }
+    $("ticketsList").innerHTML = entries.map(([id, t]) => `
+      <div class="ticket-row">
+        <div class="top">
+          <div>
+            <div class="name">${esc(t.customerName || "Unknown caller")}</div>
+            <div class="meta">${esc(t.email || "no email")} · ${esc(t.phone || "no phone")}</div>
+            <div class="meta">${esc(timeOf(t.createdAt))} · Source: ${esc(t.source || "n/a")}</div>
+          </div>
+          <span class="cat">${esc(t.category || "general")}</span>
+        </div>
+        <div style="margin-top:10px;font-size:13px;line-height:1.5;color:#d8dee9">${esc(t.description || "")}</div>
+        <div class="meta" style="margin-top:8px">Agent: ${esc(t.agentName || "?")} · ${esc(t.agentCompany || "?")} · Status: ${esc(t.status || "unknown")} · ID: <code>${esc(id)}</code></div>
+      </div>`).join("");
+  } catch (err) {
+    $("ticketsList").innerHTML = '<div class="empty">Could not load tickets: ' + esc(err.message || String(err)) + '</div>';
+  }
+}
+
+function unlock() {
+  $("lockedView").hidden = true;
+  $("unlockedView").hidden = false;
+  sessionStorage.setItem("abitech-tickets-unlocked", "1");
+  loadTickets();
+}
+function lock() {
+  $("lockedView").hidden = false;
+  $("unlockedView").hidden = true;
+  sessionStorage.removeItem("abitech-tickets-unlocked");
+}
+$("pinSubmit").addEventListener("click", () => { if ($("pinInput").value === VALID_PIN) unlock(); else $("pinInput").value = ""; });
+$("pinInput").addEventListener("keydown", e => { if (e.key === "Enter") $("pinSubmit").click(); });
+$("lockBtn").addEventListener("click", lock);
+$("refreshBtn").addEventListener("click", loadTickets);
+if (sessionStorage.getItem("abitech-tickets-unlocked") === "1") unlock();
+</script>
+</body>
+</html>
